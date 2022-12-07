@@ -23,17 +23,16 @@ struct BookListCellView: View {
                         .font(.headline)
                 }
                 
-                HStack() {
+                HStack {
                     Text(author)
-                        .font(.subheadline)
                     
                     Spacer()
                     
                     Text(yearPublished)
-                        .font(.subheadline)
-                }
+                        
+                }.font(.subheadline)
             }
-        }.foregroundColor(availableCount > 0 ? Color.black : Color.gray)
+        }.foregroundColor(availableCount > 0 ? .black : .gray)
     }
 }
 
