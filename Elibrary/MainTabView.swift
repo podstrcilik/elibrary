@@ -10,23 +10,16 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            NavigationView {
-                BaseView()
-            }
+            BookListView(books: Book.sampleData)
                 .tabItem {
-                    Label("Katalog", systemImage: "list.dash")
-                }
-            BaseView()
-                .tabItem {
-                    Label("Seznam knih", systemImage: "person.crop.circle.fill")
+                    Label("Knihotéka", systemImage: "list.dash")
                 }
             NavigationView {
                 AccountView(user: UserModel.sampleUser)
             }
-                .tabItem {
-                    Label("Account", systemImage: "person.crop.circle.fill")
-                }
-                    
+            .tabItem {
+                Label("Účet", systemImage: "person.crop.circle.fill")
+            }
         }
     }
 }
