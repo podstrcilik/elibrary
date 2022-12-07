@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C368B242937597D00862799 /* BookListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C368B232937597D00862799 /* BookListView.swift */; };
+		8C9FFFB92939269F0019C4D4 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9FFFB82939269F0019C4D4 /* AddButton.swift */; };
+		8CDA3BC8292E2B1900B091E1 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDA3BC7292E2B1900B091E1 /* Book.swift */; };
+		8CDA3BCB292E2BE600B091E1 /* BookListCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDA3BCA292E2BE600B091E1 /* BookListCellView.swift */; };
 		BA1B253C293754510089D883 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1B253B293754510089D883 /* MainTabView.swift */; };
 		BA1B253E293757AE0089D883 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1B253D293757AE0089D883 /* AccountView.swift */; };
 		BA1B2540293757DE0089D883 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1B253F293757DE0089D883 /* UserModel.swift */; };
@@ -19,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C368B232937597D00862799 /* BookListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListView.swift; sourceTree = "<group>"; };
+		8C9FFFB82939269F0019C4D4 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
+		8CDA3BC7292E2B1900B091E1 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		8CDA3BCA292E2BE600B091E1 /* BookListCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListCellView.swift; sourceTree = "<group>"; };
 		BA1B253B293754510089D883 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		BA1B253D293757AE0089D883 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		BA1B253F293757DE0089D883 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -42,6 +50,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C9FFFBA293926EE0019C4D4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8C9FFFB82939269F0019C4D4 /* AddButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		8CDA3BC6292E2A6500B091E1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8CDA3BC7292E2B1900B091E1 /* Book.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8CDA3BC9292E2B9500B091E1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8CDA3BCA292E2BE600B091E1 /* BookListCellView.swift */,
+				8C368B232937597D00862799 /* BookListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		BA5A710B2903EBE200E9A046 = {
 			isa = PBXGroup;
 			children = (
@@ -61,9 +94,12 @@
 		BA5A71162903EBE200E9A046 /* Elibrary */ = {
 			isa = PBXGroup;
 			children = (
+				8C9FFFBA293926EE0019C4D4 /* Components */,
+				8CDA3BC9292E2B9500B091E1 /* Views */,
 				BA1B253D293757AE0089D883 /* AccountView.swift */,
 				BA5A71172903EBE200E9A046 /* ElibraryApp.swift */,
 				BA5A71192903EBE200E9A046 /* ContentView.swift */,
+				8CDA3BC6292E2A6500B091E1 /* Models */,
 				BA5A711B2903EBE300E9A046 /* Assets.xcassets */,
 				BA5A711D2903EBE300E9A046 /* Preview Content */,
 				BAFE17D4292E280A0069E702 /* LoginView.swift */,
@@ -152,6 +188,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CDA3BCB292E2BE600B091E1 /* BookListCellView.swift in Sources */,
+				8C368B242937597D00862799 /* BookListView.swift in Sources */,
 				BA1B253E293757AE0089D883 /* AccountView.swift in Sources */,
 				BA1B2540293757DE0089D883 /* UserModel.swift in Sources */,
 				BA1B253C293754510089D883 /* MainTabView.swift in Sources */,
@@ -159,6 +197,8 @@
 				BAFE17D5292E280A0069E702 /* LoginView.swift in Sources */,
 				BA5A711A2903EBE200E9A046 /* ContentView.swift in Sources */,
 				BA5A71182903EBE200E9A046 /* ElibraryApp.swift in Sources */,
+				8CDA3BC8292E2B1900B091E1 /* Book.swift in Sources */,
+				8C9FFFB92939269F0019C4D4 /* AddButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
