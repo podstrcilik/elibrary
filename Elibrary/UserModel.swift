@@ -7,14 +7,17 @@
 
 import SwiftUI
 
-struct UserModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+//jméno, příjmení, rodné číslo, adresu, uživatelské jméno a heslo
+struct UserModel: Identifiable, Codable {
+    var id: UUID
+    var username: String
+    var name: String
+    var personalIdentificationNumber: String
+    var adress: String
+    var email: String
 }
 
-struct UserModel_Previews: PreviewProvider {
-    static var previews: some View {
-        UserModel()
-    }
+
+extension UserModel {
+    static let sampleUser = UserModel(id: UUID(), username: "pavel12345", name: "Pavel Odstrčilík", personalIdentificationNumber: "880230/4112", adress: "Záhlinice 5",email: "email@seznam.cz")
 }

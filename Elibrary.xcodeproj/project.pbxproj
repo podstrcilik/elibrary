@@ -7,18 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA1B253C293754510089D883 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1B253B293754510089D883 /* MainTabView.swift */; };
+		BA1B253E293757AE0089D883 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1B253D293757AE0089D883 /* AccountView.swift */; };
+		BA1B2540293757DE0089D883 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1B253F293757DE0089D883 /* UserModel.swift */; };
 		BA5A71182903EBE200E9A046 /* ElibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A71172903EBE200E9A046 /* ElibraryApp.swift */; };
 		BA5A711A2903EBE200E9A046 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A71192903EBE200E9A046 /* ContentView.swift */; };
 		BA5A711C2903EBE300E9A046 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5A711B2903EBE300E9A046 /* Assets.xcassets */; };
 		BA5A711F2903EBE300E9A046 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5A711E2903EBE300E9A046 /* Preview Assets.xcassets */; };
+		BAFE17D5292E280A0069E702 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE17D4292E280A0069E702 /* LoginView.swift */; };
+		BAFE17D7292E2BED0069E702 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE17D6292E2BED0069E702 /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA1B253B293754510089D883 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		BA1B253D293757AE0089D883 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		BA1B253F293757DE0089D883 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		BA5A71142903EBE200E9A046 /* Elibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Elibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5A71172903EBE200E9A046 /* ElibraryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElibraryApp.swift; sourceTree = "<group>"; };
 		BA5A71192903EBE200E9A046 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BA5A711B2903EBE300E9A046 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA5A711E2903EBE300E9A046 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BAFE17D4292E280A0069E702 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = Login/LoginView.swift; sourceTree = "<group>"; };
+		BAFE17D6292E2BED0069E702 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewModel.swift; path = Login/LoginViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +61,15 @@
 		BA5A71162903EBE200E9A046 /* Elibrary */ = {
 			isa = PBXGroup;
 			children = (
+				BA1B253D293757AE0089D883 /* AccountView.swift */,
 				BA5A71172903EBE200E9A046 /* ElibraryApp.swift */,
 				BA5A71192903EBE200E9A046 /* ContentView.swift */,
 				BA5A711B2903EBE300E9A046 /* Assets.xcassets */,
 				BA5A711D2903EBE300E9A046 /* Preview Content */,
+				BAFE17D4292E280A0069E702 /* LoginView.swift */,
+				BAFE17D6292E2BED0069E702 /* LoginViewModel.swift */,
+				BA1B253B293754510089D883 /* MainTabView.swift */,
+				BA1B253F293757DE0089D883 /* UserModel.swift */,
 			);
 			path = Elibrary;
 			sourceTree = "<group>";
@@ -137,6 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA1B253E293757AE0089D883 /* AccountView.swift in Sources */,
+				BA1B2540293757DE0089D883 /* UserModel.swift in Sources */,
+				BA1B253C293754510089D883 /* MainTabView.swift in Sources */,
+				BAFE17D7292E2BED0069E702 /* LoginViewModel.swift in Sources */,
+				BAFE17D5292E280A0069E702 /* LoginView.swift in Sources */,
 				BA5A711A2903EBE200E9A046 /* ContentView.swift in Sources */,
 				BA5A71182903EBE200E9A046 /* ElibraryApp.swift in Sources */,
 			);
