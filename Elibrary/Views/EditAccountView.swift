@@ -18,7 +18,7 @@ struct EditAccountView: View {
                     userView
                     Divider()
                     Text("Adresa")
-                    TextField("", text: $user.adress)
+                    TextField("", text: $user.address)
                     Divider()
                     Text("Rodné číslo")
                     TextField("", text: $user.personalIdentificationNumber)

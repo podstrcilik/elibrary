@@ -21,7 +21,7 @@ struct BookListView: View {
                             title: book.title,
                             author: book.author,
                             pageCount: book.pageCount,
-                            yearPublished: book.yearPublished,
+                            yearPublished:  book.yearPublished,
                             availableCount: book.availableCount
                         )
                     }.swipeActions() {
