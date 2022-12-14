@@ -12,13 +12,18 @@ struct MainTabView: View {
         TabView {
             BookListView(books: Book.sampleData)
                 .tabItem {
-                    Label("Knihotéka", systemImage: "list.dash")
+                    Label("Knihotéka", systemImage: "books.vertical")
+                }
+            
+            CustomerListView(customers: UserModel.sampleData)
+                .tabItem {
+                    Label("Čtenáři", systemImage: "person.3.sequence.fill")
                 }
             NavigationView {
                 AccountView(user: UserModel.sampleUser)
             }
             .tabItem {
-                Label("Účet", systemImage: "person.crop.circle.fill")
+                Label("Můj účet", systemImage: "person.crop.circle.fill")
             }
         }
     }
