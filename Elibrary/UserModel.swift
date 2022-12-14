@@ -49,3 +49,9 @@ extension UserModel {
 
     ]
 }
+
+extension UserModel {
+    var isValid: Bool {
+        return !username.isEmpty && !name.isEmpty && !personalIdentificationNumber.isEmpty && !address.isEmpty && !email.isEmpty
+    }
+}

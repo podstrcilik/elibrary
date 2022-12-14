@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Book: Identifiable {
+struct Book: Codable, Identifiable {
     var id = UUID()
     var title: String
     var author: String
@@ -89,4 +89,10 @@ extension Book {
             availableCount: 10
         ),
     ]
+}
+
+extension Book {
+    var isValid: Bool {
+        return !title.isEmpty && !author.isEmpty && pageCount > 0 && !yearPublished.isEmpty
+    }
 }

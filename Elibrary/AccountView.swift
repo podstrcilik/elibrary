@@ -16,6 +16,8 @@ struct AccountView: View {
             VStack(alignment: .leading) {
                 userView
                 Divider()
+                emailView
+                Divider()
                 Text("Adresa")
                 TextField("", text: $user.address)
                 Divider()
@@ -52,11 +54,11 @@ struct AccountView: View {
 
     var userView: some View {
         Group {
-            Text("Jméno")
-            TextField("", text: $user.name)
-            Divider()
             Text("Uživatelské jméno")
             TextField("", text: $user.username)
+            Divider()
+            Text("Jméno")
+            TextField("", text: $user.name)
         }
     }
 
