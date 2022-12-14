@@ -9,11 +9,11 @@ import Foundation
 
 struct Book: Identifiable {
     var id = UUID()
-    let title: String
-    let author: String
-    let pageCount: Int
-    let yearPublished: String
-    let availableCount: Int
+    var title: String
+    var author: String
+    var pageCount: Int
+    var yearPublished: String
+    var availableCount: Int
 }
 
 extension Book {

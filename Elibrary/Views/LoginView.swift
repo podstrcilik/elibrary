@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var viewModel = LoginViewModel()
+    @State private var isPresented = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -32,14 +33,13 @@ struct LoginView: View {
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 2.0)))
             Spacer()
-            Button("Přihlasit se") {
-                print("test")
-//                isOrange.toggle()
+            Button(action: {
+                self.isPresented.toggle()
+            }) {
+                Text("Přihlasit se")
+                    .frame(maxWidth: .infinity, maxHeight: 50)
             }
-            .background(Color.blue)
-            .foregroundColor(Color.white)
-            .cornerRadius(5)
-
+            .buttonStyle(ConfirmButtonStyle())
 
 //            Button(action: {
 ////                performLogin()
@@ -52,6 +52,7 @@ struct LoginView: View {
 //            .cornerRadius(5)
         }
         .padding()
+        .fullScreenCover(isPresented: $isPresented, content: MainTabView.init)
     }
 }
 
