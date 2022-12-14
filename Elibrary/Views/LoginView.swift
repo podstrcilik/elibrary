@@ -17,33 +17,33 @@ struct LoginView: View {
     
     var body: some View {
         VStack{
-            LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .top, endPoint: .bottom)
-                .mask(
-                    Image(systemName: "book.circle")
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                ).padding()
+            VStack {
+                LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .top, endPoint: .bottom)
+                    .mask(
+                        VStack{
+                            Image(systemName: "book.circle")
+                                .resizable()
+                                .frame(width: 180, height: 180).padding()
+                            Text("Knihotéka").font(.title).bold()
+                    
+                        })
+            }
+            Spacer()
             VStack(alignment: .leading) {
-                Text("Přihlašovací jméno")
-                    .font(.title)
-                TextField(
-                    "Jméno",
-                    text: $username
-                )
-                .frame(height: 40)
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 2.0)))
-                .disableAutocorrection(true)
-                Text("Heslo")
-                    .font(.title)
-                SecureField(
-                    "Heslo",
-                    text: $password
-                )
-                .frame(height: 40)
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 2.0)))
-                Spacer()
+                VStack(alignment: .leading) {
+                    Text("Přihlašovací jméno")
+                    TextField(
+                        "Jméno",
+                        text: $username
+                    )
+                }.padding()
+                VStack(alignment: .leading) {
+                    Text("Heslo")
+                    SecureField(
+                        "Heslo",
+                        text: $password
+                    )
+                }.padding()
                 Button(action: {
                     self.isPresented.toggle()
                 }) {
