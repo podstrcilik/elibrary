@@ -38,6 +38,7 @@ struct NewBookView: View {
                     .frame(maxWidth: .infinity, maxHeight: 50)
             }
             .buttonStyle(ConfirmButtonStyle())
+            .disabled(!book.isValid)
         }
         .background(Color(.systemGray6))
     }

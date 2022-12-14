@@ -11,11 +11,12 @@ struct BookListView: View {
     @State private var searchText = ""
     @State var books: [Book]
     @State private var showNewBookModal = false
+    @StateObject var viewModel = BookListViewModel()
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(books) { book in
+                ForEach(viewModel.books) { book in
                     NavigationLink(destination: BookDetailView(book: book)) {
                         BookListCellView(
                             title: book.title,
@@ -26,7 +27,7 @@ struct BookListView: View {
                         )
                     }.swipeActions() {
                         Button("Delete") {
-                            books.removeAll(where: { $0.id == book.id})
+                            viewModel.books.removeAll(where: { $0.id == book.id})
                         }.tint(.red)
                         Button("Přidělit") {
                             
@@ -40,10 +41,6 @@ struct BookListView: View {
             )
             .navigationTitle("Knihotéka")
             .toolbar {
-                
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    EditButton()
-                }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: {
                         showNewBookModal.toggle()
@@ -53,6 +50,9 @@ struct BookListView: View {
                 }
             }
         }
+        .onAppear(perform: {
+            viewModel.fetchBooks()
+        })
         .sheet(isPresented: $showNewBookModal) {
             NavigationView {
                 NewBookView(showModal: self.$showNewBookModal, book: Book(title: "", author: "", pageCount: 0, yearPublished: "2023", availableCount: 0))

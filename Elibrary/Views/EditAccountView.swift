@@ -17,6 +17,8 @@ struct EditAccountView: View {
                 VStack(alignment: .leading) {
                     userView
                     Divider()
+                    emailView
+                    Divider()
                     Text("Adresa")
                     TextField("Adresa bydliště", text: $user.address)
                     Divider()
@@ -27,19 +29,20 @@ struct EditAccountView: View {
             Button(action: {
                 self.showModal.toggle()
             }) {
-                Text("Uložit")
+                Text("Potvrdit")
             }
             .buttonStyle(ConfirmButtonStyle())
+            .disabled(!user.isValid)
         }
     }
 
     var userView: some View {
         Group {
-            Text("Jméno")
-            TextField("Jméno a příjmení", text: $user.name)
-            Divider()
             Text("Uživatelské jméno")
             TextField("Uživatelské jméno", text: $user.username)
+            Divider()
+            Text("Jméno")
+            TextField("Jméno a příjmení", text: $user.name)
         }
     }
 
@@ -47,7 +50,6 @@ struct EditAccountView: View {
         Group {
             Text("Email")
             TextField("E-mailová adresa", text: $user.email)
-            Divider()
         }
     }
 
