@@ -10,49 +10,72 @@ import SwiftUI
 struct LoginView: View {
     @ObservedObject var viewModel = LoginViewModel()
     @State private var isPresented = false
-
+    
+    @State var showRegistration = false;
+    @State var username = "";
+    @State var password = "";
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Přihlašovací jméno")
-                .font(.title)
-            TextField(
-                "Jméno",
-                text: viewModel.$name
-            )
+        VStack{
+            LinearGradient(gradient: Gradient(colors: [.green, .blue]), startPoint: .top, endPoint: .bottom)
+                .mask(
+                    Image(systemName: "book.circle")
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                ).padding()
+            VStack(alignment: .leading) {
+                Text("Přihlašovací jméno")
+                    .font(.title)
+                TextField(
+                    "Jméno",
+                    text: $username
+                )
                 .frame(height: 40)
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 2.0)))
                 .disableAutocorrection(true)
-            Text("Heslo")
-                .font(.title)
-            SecureField(
-                "Heslo",
-                text: viewModel.$password
-            )
+                Text("Heslo")
+                    .font(.title)
+                SecureField(
+                    "Heslo",
+                    text: $password
+                )
                 .frame(height: 40)
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10.0).strokeBorder(Color.blue, style: StrokeStyle(lineWidth: 2.0)))
-            Spacer()
-            Button(action: {
-                self.isPresented.toggle()
-            }) {
-                Text("Přihlasit se")
-                    .frame(maxWidth: .infinity, maxHeight: 50)
+                Spacer()
+                Button(action: {
+                    self.isPresented.toggle()
+                }) {
+                    Text("Přihlásit se")
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                }
+                .buttonStyle(ConfirmButtonStyle()).padding(-15)
+                
             }
-            .buttonStyle(ConfirmButtonStyle())
-
-//            Button(action: {
-////                performLogin()
-//            }) {
-//                Text(isRegistration == true ? "Registrovat se" : "Přihlásit se")
-//                    .frame(maxWidth: .infinity, maxHeight: 50)
-//            }
-//            .background(Color.blue)
-//            .foregroundColor(Color.white)
-//            .cornerRadius(5)
-        }
-        .padding()
-        .fullScreenCover(isPresented: $isPresented, content: MainTabView.init)
+            .padding(.bottom)
+            .fullScreenCover(isPresented: $isPresented, content: MainTabView.init)
+            HStack(alignment: .center){
+                Text("Nemáš ještě účet?").opacity(0.6)
+                Button(action: { showRegistration.toggle()}) {
+                    Text("Registrovat se")
+                }
+            }
+        }.padding()
+            .sheet(isPresented: $showRegistration) {
+                NavigationView {
+                    EditAccountView(user: UserModel(
+                        id: UUID(), username: "", name: "", personalIdentificationNumber: "", address: "", email: ""), showModal: self.$showRegistration)
+                    .navigationTitle("Založ si účet")
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Zavřít") {
+                                showRegistration.toggle()
+                            }
+                        }
+                    }
+                }
+            }
     }
 }
 

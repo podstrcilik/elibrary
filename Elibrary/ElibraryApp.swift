@@ -11,8 +11,7 @@ import SwiftUI
 struct ElibraryApp: App {
     var body: some Scene {
         WindowGroup {
-//            LoginView()
-            MainTabView()
+            LoginView()
         }
     }
 }
