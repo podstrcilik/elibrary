@@ -31,8 +31,6 @@ struct MainTabView_Previews: PreviewProvider {
 }
 
 
-
-
 struct BaseView: View {
     var body: some View {
         Text("aa")

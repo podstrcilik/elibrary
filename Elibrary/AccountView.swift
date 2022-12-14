@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AccountView: View {
     @State var user: UserModel
+    @State private var showEditModal = false
 
     var body: some View {
         Form {
@@ -24,6 +25,29 @@ struct AccountView: View {
             }.allowsHitTesting(false)
         }
         .navigationTitle("Účet")
+        .toolbar {
+            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showEditModal.toggle()
+                }) {
+                    Text("Edit")
+                }
+            }
+        }
+        .sheet(isPresented: $showEditModal) {
+            NavigationView {
+                EditAccountView(user: user, showModal: $showEditModal)
+                .navigationTitle("Editace účtu")
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Zavřít") {
+                                showEditModal.toggle()
+                            }
+                        }
+                    }
+            }
+        }
+
     }
 
     var userView: some View {
