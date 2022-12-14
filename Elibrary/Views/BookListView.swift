@@ -10,20 +10,29 @@ import SwiftUI
 struct BookListView: View {
     @State private var searchText = ""
     @State var books: [Book]
-    
-    func add() -> Void {}
-    
+    @State private var showNewBookModal = false
+
     var body: some View {
         NavigationView {
-            List(books) { book in
-                BookListCellView(
-                    title: book.title,
-                    author: book.author,
-                    pageCount: book.pageCount,
-                    yearPublished: book.yearPublished,
-                    availableCount: book.availableCount
-                )
-                
+            List {
+                ForEach(books) { book in
+                    NavigationLink(destination: BookDetailView(book: book)) {
+                        BookListCellView(
+                            title: book.title,
+                            author: book.author,
+                            pageCount: book.pageCount,
+                            yearPublished: book.yearPublished,
+                            availableCount: book.availableCount
+                        )
+                    }.swipeActions() {
+                        Button("Delete") {
+                            books.removeAll(where: { $0.id == book.id})
+                        }.tint(.red)
+                        Button("Přidělit") {
+                            
+                        }.tint(.blue)
+                    }
+                }
             }
             .searchable(
                 text: $searchText,
@@ -36,10 +45,25 @@ struct BookListView: View {
                     EditButton()
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    AddButton(onAdd: add)
+                    Button(action: {
+                        showNewBookModal.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                    }
                 }
-            
-                
+            }
+        }
+        .sheet(isPresented: $showNewBookModal) {
+            NavigationView {
+                NewBookView(showModal: self.$showNewBookModal, book: Book(title: "", author: "", pageCount: 0, yearPublished: "2023", availableCount: 0))
+                    .navigationTitle("Přidání knihy")
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Zavřít") {
+                                showNewBookModal.toggle()
+                            }
+                        }
+                    }
             }
         }
     }
