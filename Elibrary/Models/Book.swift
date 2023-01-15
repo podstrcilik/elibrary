@@ -8,91 +8,103 @@
 import Foundation
 
 struct Book: Codable, Identifiable {
-    var id = UUID()
+    var id: String
     var title: String
     var author: String
-    var pageCount: Int
-    var yearPublished: String
-    var availableCount: Int
+    var numberOfPages: Int
+    var yearOfPublication: Int
+    var numberOfLicences: Int
+    var frontPageFileId: String?
+    var coverFileId: String?
 }
 
 extension Book {
     static let sampleData = [
         Book(
+            id: "1",
             title: "Osudné svědectví",
             author: "Bryndza Robert",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
         Book(
+            id: "2",
             title: "Martin Šonka: Můj let do nebes",
             author: "Sára Robert",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
         Book(
+            id: "3",
             title: "Kosti v srdci",
             author: "Hoover Colleen",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
         Book(
+            id: "4",
             title: "Hrad ve Skotsku",
             author: "Caplin Julie",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 0
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 0
         ),
         Book(
+            id: "5",
             title: "Lucemburská epopej I - Král cizinec (1309-1333)",
             author: "Vondruška Vlastimil",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
         Book(
+            id: "6",
             title: "Osudné svědectví",
             author: "Bryndza Robert",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
         Book(
+            id: "7",
             title: "Martin Šonka: Můj let do nebes",
             author: "Sára Robert",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
         Book(
+            id: "8",
             title: "Kosti v srdci",
             author: "Hoover Colleen",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
         Book(
+            id: "9",
             title: "Hrad ve Skotsku",
             author: "Caplin Julie",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 0
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 0
         ),
         Book(
+            id: "10",
             title: "Lucemburská epopej I - Král cizinec (1309-1333)",
             author: "Vondruška Vlastimil",
-            pageCount: 220,
-            yearPublished: "2022",
-            availableCount: 10
+            numberOfPages: 220,
+            yearOfPublication: 2022,
+            numberOfLicences: 10
         ),
     ]
 }
 
 extension Book {
     var isValid: Bool {
-        return !title.isEmpty && !author.isEmpty && pageCount > 0 && !yearPublished.isEmpty
+        return !title.isEmpty && !author.isEmpty && numberOfPages > 0 && (yearOfPublication > 0)
     }
 }

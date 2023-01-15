@@ -9,49 +9,50 @@ import SwiftUI
 
 //jméno, příjmení, rodné číslo, adresu, uživatelské jméno a heslo
 struct UserModel: Identifiable, Codable {
-    var id: UUID
+    var id: String
+    var firstName: String
+    var lastName: String
+    var birthNumber: String
     var username: String
-    var name: String
-    var personalIdentificationNumber: String
-    var address: String
-    var email: String
+    var role: String
+    var isApproved: Bool
+    var isBanned: Bool
+    var address: Address
+//    var name: String
+//    var personalIdentificationNumber: String
+//    var address: String
+//    var email: String
 }
 
 
 extension UserModel {
-    static let sampleUser = UserModel(id: UUID(), username: "pavel12345", name: "Pavel Odstrčilík", personalIdentificationNumber: "880230/4112", address: "Záhlinice 5",email: "email@seznam.cz")
+    static let sampleUser = UserModel(id: "1", firstName: "2", lastName: "3", birthNumber: "4", username: "5", role: "6", isApproved: true, isBanned: false, address: Address(street: "", city: "", postcode: ""))
     
     static let sampleData = [
-        UserModel(
-            id: UUID(),
-            username: "pavel12345",
-            name: "Pavel Odstrčilík",
-            personalIdentificationNumber: "880230/4112",
-            address: "Záhlinice 5",
-            email: "email@seznam.cz"
-        ),
-        UserModel(
-            id: UUID(),
-            username: "kristytoman",
-            name: "Kristýna Tomanová",
-            personalIdentificationNumber: "983274/5555",
-            address: "Senička 50",
-            email: "kristytoman@email.cz"
-        ),
-        UserModel(
-            id: UUID(),
-            username: "vasa1234",
-            name: "Václav Toncer",
-            personalIdentificationNumber: "9902836/6372",
-            address: "TGM 222, Zlín",
-            email: "vaclav@email.cz"
-        ),
-
+        UserModel(id: "1", firstName: "2", lastName: "3", birthNumber: "4", username: "5", role: "6", isApproved: true, isBanned: false, address: Address(street: "", city: "", postcode: ""))
     ]
 }
 
 extension UserModel {
     var isValid: Bool {
-        return !username.isEmpty && !name.isEmpty && !personalIdentificationNumber.isEmpty && !address.isEmpty && !email.isEmpty
+        return !firstName.isEmpty && !lastName.isEmpty && !birthNumber.isEmpty
     }
 }
+
+
+
+struct UserModelNetwork: Codable, Identifiable {
+    var id: String
+    var firstName: String
+    var lastName: String
+    var apiKey: String
+}
+
+
+class LoggedUser: ObservableObject {
+    @Published var apiKey: String
+    init(apiKey: String) {
+        self.apiKey = apiKey
+    }
+}
+

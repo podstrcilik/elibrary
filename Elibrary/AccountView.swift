@@ -19,10 +19,10 @@ struct AccountView: View {
                 emailView
                 Divider()
                 Text("Adresa")
-                TextField("", text: $user.address)
+//                TextField("", text: $user.address)
                 Divider()
                 Text("Rodné číslo")
-                TextField("", text: $user.personalIdentificationNumber)
+                TextField("", text: $user.birthNumber)
 
             }.allowsHitTesting(false)
         }
@@ -58,14 +58,17 @@ struct AccountView: View {
             TextField("", text: $user.username)
             Divider()
             Text("Jméno")
-            TextField("", text: $user.name)
+            TextField("", text: $user.firstName)
+            Divider()
+            Text("Příjmení")
+            TextField("", text: $user.lastName)
         }
     }
 
     var emailView: some View {
         Group {
             Text("Email")
-            TextField("", text: $user.email)
+//            TextField("", text: $user.email)
             Divider()
         }
     }
