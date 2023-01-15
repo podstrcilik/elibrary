@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject var viewModel = LoginViewModel()
-    @State private var isPresented = false
+    @StateObject var viewModel = LoginViewModel()
+//    @ObservableObject var user: UserModelNetwork?
+//    @State private var isPresented = false
     
-    @State var showRegistration = false;
-    @State var username = "";
-    @State var password = "";
+    @State var showRegistration = false
+    @State var username = ""
+    @State var password = ""
     
     var body: some View {
         VStack{
@@ -34,18 +35,18 @@ struct LoginView: View {
                     Text("Přihlašovací jméno")
                     TextField(
                         "Jméno",
-                        text: $username
+                        text: $viewModel.name
                     )
                 }.padding()
                 VStack(alignment: .leading) {
                     Text("Heslo")
                     SecureField(
                         "Heslo",
-                        text: $password
+                        text: $viewModel.password
                     )
                 }.padding()
                 Button(action: {
-                    self.isPresented.toggle()
+                    viewModel.logIn()
                 }) {
                     Text("Přihlásit se")
                         .frame(maxWidth: .infinity, maxHeight: 50)
@@ -54,7 +55,8 @@ struct LoginView: View {
                 
             }
             .padding(.bottom)
-            .fullScreenCover(isPresented: $isPresented, content: MainTabView.init)
+            .fullScreenCover(isPresented: $viewModel.isPresented, content: MainTabView.init)
+            .environmentObject(viewModel.user)
             HStack(alignment: .center){
                 Text("Nemáš ještě účet?").opacity(0.6)
                 Button(action: { showRegistration.toggle()}) {
@@ -64,8 +66,7 @@ struct LoginView: View {
         }.padding()
             .sheet(isPresented: $showRegistration) {
                 NavigationView {
-                    EditAccountView(user: UserModel(
-                        id: UUID(), username: "", name: "", personalIdentificationNumber: "", address: "", email: ""), showModal: self.$showRegistration)
+                    EditAccountView(user: UserModel(id: "", firstName: "", lastName: "", birthNumber: "", username: "", role: "", isApproved: true, isBanned: false, address: Address(street: "", city: "", postcode: "")), showModal: self.$showRegistration)
                     .navigationTitle("Založ si účet")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
