@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @EnvironmentObject var loggedUser: LoggedUser
+
     var body: some View {
         TabView {
             BookListView(books: Book.sampleData)

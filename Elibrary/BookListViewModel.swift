@@ -14,20 +14,19 @@ class BookListViewModel: ObservableObject {
     init() {}
 
     public func fetchBooks() {
-        guard let url = URL(string: "http://127.0.0.1:3001/books") else { return }
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            if let data = data {
+        Networking.shared.getRequest(to: "/api/v1/book", then: { (result) in
+            if case .success(let succesData) = result {
                 do {
-                    let results = try JSONDecoder().decode(BookListApi.self, from: data)
+                    let results = try JSONDecoder().decode(GenericCollectionNetworkLayer<Book>.self, from: succesData)
                     DispatchQueue.main.async {
-                        self.books = results.books
+                        self.books = results.data
                     }
                 }
                 catch {
                     print(error)
                 }
             }
-        }.resume()
+        })
     }
 }
 

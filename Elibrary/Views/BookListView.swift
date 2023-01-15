@@ -21,9 +21,9 @@ struct BookListView: View {
                         BookListCellView(
                             title: book.title,
                             author: book.author,
-                            pageCount: book.pageCount,
-                            yearPublished:  book.yearPublished,
-                            availableCount: book.availableCount
+                            pageCount: book.numberOfPages,
+                            yearPublished:  "\(book.yearOfPublication)",
+                            availableCount: book.numberOfLicences
                         )
                     }.swipeActions() {
                         Button("Delete") {
@@ -34,6 +34,9 @@ struct BookListView: View {
                         }.tint(.blue)
                     }
                 }
+            }
+            .refreshable {
+                viewModel.fetchBooks()
             }
             .searchable(
                 text: $searchText,
@@ -55,7 +58,7 @@ struct BookListView: View {
         })
         .sheet(isPresented: $showNewBookModal) {
             NavigationView {
-                NewBookView(showModal: self.$showNewBookModal, book: Book(title: "", author: "", pageCount: 0, yearPublished: "2023", availableCount: 0))
+                NewBookView(showModal: self.$showNewBookModal, book: Book(id: "999999",title: "", author: "", numberOfPages: 0, yearOfPublication: 2023, numberOfLicences: 0))
                     .navigationTitle("Přidání knihy")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {

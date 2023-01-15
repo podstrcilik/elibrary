@@ -22,6 +22,12 @@
 		BA5A711A2903EBE200E9A046 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5A71192903EBE200E9A046 /* ContentView.swift */; };
 		BA5A711C2903EBE300E9A046 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5A711B2903EBE300E9A046 /* Assets.xcassets */; };
 		BA5A711F2903EBE300E9A046 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA5A711E2903EBE300E9A046 /* Preview Assets.xcassets */; };
+		BA6450622974195E0051D04D /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6450612974195E0051D04D /* Networking.swift */; };
+		BA64506429741CA80051D04D /* LoginNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64506329741CA80051D04D /* LoginNetworkModel.swift */; };
+		BA645066297421B40051D04D /* GenericNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA645065297421B40051D04D /* GenericNetworkLayer.swift */; };
+		BA645068297449E10051D04D /* CustomAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA645067297449E10051D04D /* CustomAsyncImage.swift */; };
+		BA64506A297453910051D04D /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA645069297453910051D04D /* AddressModel.swift */; };
+		BA64506C297470B80051D04D /* NewBookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA64506B297470B80051D04D /* NewBookViewModel.swift */; };
 		BA715AA6294098E4007D108B /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA715AA5294098E4007D108B /* BookDetailView.swift */; };
 		BA715AAA29410724007D108B /* NewBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA715AA929410724007D108B /* NewBookView.swift */; };
 		BAF9B7502949CC9900811BC8 /* BookListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9B74F2949CC9900811BC8 /* BookListViewModel.swift */; };
@@ -47,6 +53,12 @@
 		BA5A71192903EBE200E9A046 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BA5A711B2903EBE300E9A046 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA5A711E2903EBE300E9A046 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA6450612974195E0051D04D /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		BA64506329741CA80051D04D /* LoginNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginNetworkModel.swift; sourceTree = "<group>"; };
+		BA645065297421B40051D04D /* GenericNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericNetworkLayer.swift; sourceTree = "<group>"; };
+		BA645067297449E10051D04D /* CustomAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAsyncImage.swift; sourceTree = "<group>"; };
+		BA645069297453910051D04D /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		BA64506B297470B80051D04D /* NewBookViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookViewModel.swift; sourceTree = "<group>"; };
 		BA715AA5294098E4007D108B /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		BA715AA929410724007D108B /* NewBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBookView.swift; sourceTree = "<group>"; };
 		BAF9B74F2949CC9900811BC8 /* BookListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookListViewModel.swift; sourceTree = "<group>"; };
@@ -70,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				8C9FFFB82939269F0019C4D4 /* AddButton.swift */,
+				BA645067297449E10051D04D /* CustomAsyncImage.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -78,6 +91,9 @@
 			isa = PBXGroup;
 			children = (
 				8CDA3BC7292E2B1900B091E1 /* Book.swift */,
+				BA64506329741CA80051D04D /* LoginNetworkModel.swift */,
+				BA645065297421B40051D04D /* GenericNetworkLayer.swift */,
+				BA645069297453910051D04D /* AddressModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -138,6 +154,8 @@
 				BA1B253F293757DE0089D883 /* UserModel.swift */,
 				BAF9B74F2949CC9900811BC8 /* BookListViewModel.swift */,
 				BAF9B7512949D77000811BC8 /* CustomerViewModel.swift */,
+				BA6450612974195E0051D04D /* Networking.swift */,
+				BA64506B297470B80051D04D /* NewBookViewModel.swift */,
 			);
 			path = Elibrary;
 			sourceTree = "<group>";
@@ -221,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CDA3BCB292E2BE600B091E1 /* BookListCellView.swift in Sources */,
+				BA64506429741CA80051D04D /* LoginNetworkModel.swift in Sources */,
 				8C368B242937597D00862799 /* BookListView.swift in Sources */,
 				8C2A4785294099B000033C3D /* CustomerListView.swift in Sources */,
 				BA22D3272949C12B00161612 /* ConfirmButtonStyle.swift in Sources */,
@@ -229,15 +248,20 @@
 				BA1B2540293757DE0089D883 /* UserModel.swift in Sources */,
 				BA715AA6294098E4007D108B /* BookDetailView.swift in Sources */,
 				BAF9B7522949D77000811BC8 /* CustomerViewModel.swift in Sources */,
+				BA645068297449E10051D04D /* CustomAsyncImage.swift in Sources */,
 				BA1B253C293754510089D883 /* MainTabView.swift in Sources */,
 				BAFE17D7292E2BED0069E702 /* LoginViewModel.swift in Sources */,
+				BA6450622974195E0051D04D /* Networking.swift in Sources */,
 				BAFE17D5292E280A0069E702 /* LoginView.swift in Sources */,
 				BA5A711A2903EBE200E9A046 /* ContentView.swift in Sources */,
 				BA5A71182903EBE200E9A046 /* ElibraryApp.swift in Sources */,
 				8CDA3BC8292E2B1900B091E1 /* Book.swift in Sources */,
 				8C2A4787294099D900033C3D /* CustomerListCellView.swift in Sources */,
 				BA715AAA29410724007D108B /* NewBookView.swift in Sources */,
+				BA64506A297453910051D04D /* AddressModel.swift in Sources */,
+				BA64506C297470B80051D04D /* NewBookViewModel.swift in Sources */,
 				BA3627332947B17C00A37731 /* EditAccountView.swift in Sources */,
+				BA645066297421B40051D04D /* GenericNetworkLayer.swift in Sources */,
 				8C9FFFB92939269F0019C4D4 /* AddButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
