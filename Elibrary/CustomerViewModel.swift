@@ -13,20 +13,19 @@ class CustomerViewModel: ObservableObject {
     init() {}
 
     public func fetch() {
-        guard let url = URL(string: "http://127.0.0.1:3001/customers") else { return }
-        URLSession.shared.dataTask(with: url) { (data, _, _) in
-            if let data = data {
+        Networking.shared.getRequest(to: "/api/v1/user", then: { (result) in
+            if case .success(let succesData) = result {
                 do {
-                    let results = try JSONDecoder().decode(CustomerListApi.self, from: data)
+                    let results = try JSONDecoder().decode(GenericCollectionNetworkLayer<UserModel>.self, from: succesData)
                     DispatchQueue.main.async {
-                        self.customers = results.customers
+                        self.customers = results.data
                     }
                 }
                 catch {
                     print(error)
                 }
             }
-        }.resume()
+        })
     }
 }
 

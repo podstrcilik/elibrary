@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct CustomerListCellView: View {
-    var id: UUID
+    var id: String
     @State var username: String
     @State var name: String
     @State var personalIdentificationNumber: String
-    @State var email: String
+    @State var address: String
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -24,7 +24,7 @@ struct CustomerListCellView: View {
                 }.font(.subheadline)
                 
                 HStack {
-                    Text(email)
+                    Text(address)
                     
                     Spacer()
                     
@@ -45,9 +45,9 @@ struct CustomerListCellView_Previews: PreviewProvider {
         CustomerListCellView(
             id: UserModel.sampleUser.id,
             username: UserModel.sampleUser.username,
-            name: UserModel.sampleUser.name,
-            personalIdentificationNumber: UserModel.sampleUser.personalIdentificationNumber,
-            email: UserModel.sampleUser.email
+            name: UserModel.sampleUser.firstName,
+            personalIdentificationNumber: UserModel.sampleUser.birthNumber,
+            address: "UserModel.sampleUser.email"
         )
     }
 }

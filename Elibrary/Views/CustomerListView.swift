@@ -24,9 +24,9 @@ struct CustomerListView: View {
                     CustomerListCellView(
                         id: customer.id,
                         username: customer.username,
-                        name: customer.name,
-                        personalIdentificationNumber: customer.personalIdentificationNumber,
-                        email: customer.email
+                        name: "\(customer.firstName + " " + customer.lastName)",
+                        personalIdentificationNumber: customer.birthNumber,
+                        address: "\(customer.address.street) \n\(customer.address.city) \(customer.address.postcode)"
                     )
                 }
                 .swipeActions() {
@@ -35,6 +35,9 @@ struct CustomerListView: View {
                     Button("Schválit") {
                     }.tint(.green)
                 }
+            }
+            .refreshable {
+                viewModel.fetch()
             }
             .searchable(
                 text: $searchText,
@@ -52,8 +55,7 @@ struct CustomerListView: View {
         })
         .sheet(isPresented: $showNewBookModal) {
             NavigationView {
-                EditAccountView(user: UserModel(
-                    id: UUID(), username: "", name: "", personalIdentificationNumber: "", address: "", email: ""), showModal: self.$showNewBookModal)
+                EditAccountView(user: UserModel(id: "", firstName: "", lastName: "", birthNumber: "", username: "", role: "", isApproved: true, isBanned: false, address: Address(street: "", city: "", postcode: "")), showModal: self.$showNewBookModal)
                 .navigationTitle("Nový uživatel")
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
