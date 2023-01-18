@@ -66,7 +66,7 @@ struct LoginView: View {
         }.padding()
             .sheet(isPresented: $showRegistration) {
                 NavigationView {
-                    EditAccountView(user: UserModel(id: "", firstName: "", lastName: "", birthNumber: "", username: "", role: "", isApproved: true, isBanned: false, address: Address(street: "", city: "", postcode: "")), showModal: self.$showRegistration)
+                    EditAccountView(user: UserModel(id: "", firstName: "", lastName: "", birthNumber: "", username: "", role: "", isApproved: true, isBanned: false, address: Address(street: "", city: "", postcode: "")), showModal: self.$showRegistration, isRegistration: true)
                     .navigationTitle("Založ si účet")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
