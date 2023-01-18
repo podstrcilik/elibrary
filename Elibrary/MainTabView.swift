@@ -14,21 +14,21 @@ struct MainTabView: View {
 
     var body: some View {
         TabView {
-            BookListView(books: Book.sampleData)
+            BookListView(books: [])
                 .tabItem {
                     Label("Knihotéka", systemImage: "books.vertical")
                 }
 
             if loggedUser.isLibrarian {
-                CustomerListView(customers: UserModel.sampleData)
+                CustomerListView(customers: [])
                     .tabItem {
                         Label("Čtenáři", systemImage: "person.3.sequence.fill")
                     }
             }
 
-            BorrowedBooksListView(books: Book.sampleData)
+            BorrowedBooksListView(books: [])
                 .tabItem {
-                    Label("Zapůjčené", systemImage: "books.vertical")
+                    Label("Zapůjčené", systemImage: "books.vertical.circle")
                 }
 
             NavigationView {

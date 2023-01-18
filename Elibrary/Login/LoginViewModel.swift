@@ -17,8 +17,8 @@ final class LoginViewModel: ObservableObject {
 
     // MARK: - Properties
     func logIn() {
-//        let test = LoginNetworkModel(username: name, password: password)
-        let test = LoginNetworkModel(username: "kubrt", password: "asd")
+        let test = LoginNetworkModel(username: name, password: password)
+//        let test = LoginNetworkModel(username: "kubrt", password: "asd")
 
         _ = Networking.shared.sendPostRequest(to: "/api/v1/auth/login", body: test.encoded(), then: { (result) in
             if case .success(let succesData) = result {

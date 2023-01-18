@@ -26,6 +26,7 @@ struct BorrowedBooksListView: View {
     @State private var showNewBookModal = false
     @StateObject var viewModel = BorrowedBooksViewModel()
     @State var selectedIndex: String?
+    @EnvironmentObject var loggedUser: LoggedUser
 
     var body: some View {
         NavigationView {
@@ -33,7 +34,7 @@ struct BorrowedBooksListView: View {
                 Section(header: Text("Aktuálně zapůjčené")) {
                     ForEach(viewModel.activeCirculations) { circulation in
                         let book = circulation.book
-                        NavigationLink(destination: BookDetailView(book: book)) {
+                        NavigationLink(destination: BookDetailView(book: book, readOnly: true)) {
                             BookListCellView(
                                 title: book.title,
                                 author: book.author,
@@ -42,6 +43,12 @@ struct BorrowedBooksListView: View {
                                 availableCount: book.numberOfLicences,
                                 bottomTitle: "Vypůjčeno: \(circulation.borrowedAt?.date.dropLast(10) ?? "N/A")"
                             )
+                        }.swipeActions() {
+                                Button("Vrátit") {
+                                    viewModel.returnBook(book: book)
+//                                    viewModel.deleteBook(id: book.id)
+                                }.tint(.green)
+
                         }
                     }
                     
@@ -49,7 +56,7 @@ struct BorrowedBooksListView: View {
                 Section(header: Text("Historie")) {
                     ForEach(viewModel.oldCirculations) { circulation in
                         let book = circulation.book
-                        NavigationLink(destination: BookDetailView(book: book)) {
+                        NavigationLink(destination: BookDetailView(book: book, readOnly: true)) {
                             BookListCellView(
                                 title: book.title,
                                 author: book.author,
@@ -64,12 +71,15 @@ struct BorrowedBooksListView: View {
                 }
             }
             .refreshable {
-                viewModel.fetchBooks()
+                viewModel.fetchBooks(history: false)
+                viewModel.fetchBooks(history: true)
             }
             .navigationTitle("Zapůjčené knihy")
         }
         .onAppear(perform: {
-            viewModel.fetchBooks()
+            viewModel.userId = loggedUser.id
+            viewModel.fetchBooks(history: false)
+            viewModel.fetchBooks(history: true)
         })
     }
 

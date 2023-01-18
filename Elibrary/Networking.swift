@@ -8,47 +8,6 @@
 import Foundation
 import SwiftUI
 
-//struct Networking {
-//    var urlSession = URLSession.shared
-//    var baseUrl = "https://bookify-backend.dev07.b2a.cz"
-//    var apiKey: String?
-//
-//    func sendPostRequest(
-//        to url: String,
-//        body: Data,
-//        then handler: @escaping (Result<Data, Error>) -> Void
-//    ) {
-//        // To ensure that our request is always sent, we tell
-//        // the system to ignore all local cache data:
-//        var request = URLRequest(
-//            url: URL(string: baseUrl+url)!,
-//            cachePolicy: .reloadIgnoringLocalCacheData
-//        )
-//
-//        request.httpMethod = "POST"
-//        request.httpBody = body
-//
-//        let task = urlSession.dataTask(
-//            with: request,
-//            completionHandler: { data, response, error in
-//                handler(Result.success(data ?? Data()))
-//////                handler()
-////                switch response.result {
-////                case .success:
-////                    handler(Result.Success(response.result.value))
-////                    break
-////                case .failure(let error):
-////                    handler(Result.Failure(.serverConnectionFailure))
-////                    break
-////                }
-//                // Validate response and call handler
-//                //                ...
-//            }
-//        )
-//
-//        task.resume()
-//    }
-//}
 enum MessageError: Error {
     case error(messages: [String])
 }
@@ -97,7 +56,7 @@ class Networking {
                             DispatchQueue.main.async {
                                 NotificationCenter.default.post(name: .showAlert,
                                                                 object: AlertData(title: Text("Error"),
-                                                                                  message: Text(messages?.joined() ?? "N/A"),
+                                                                                  message: Text(messages?.joined(separator: " ") ?? "N/A"),
                                                                                   dismissButton: .default(Text("OK")) {
                                     handler(Result.failure(MessageError.error(messages: messages ?? ["N/A"])))
 
@@ -106,29 +65,10 @@ class Networking {
                         } else {
                             handler(Result.success(data ?? Data()))
                         }
-//                        if let names = json["names"] as? [String] {
-//                            print(names)
-//                        }
                     }
                 } catch let error as NSError {
                     print("Failed to load: \(error.localizedDescription)")
                 }
-
-
-//                handler(Result.success(data ?? Data()))
-                print("a")
-
-////                handler()
-//                switch response.result {
-//                case .success:
-//                    handler(Result.Success(response.result.value))
-//                    break
-//                case .failure(let error):
-//                    handler(Result.Failure(.serverConnectionFailure))
-//                    break
-//                }
-                // Validate response and call handler
-                //                ...
             }
         )
 
@@ -320,7 +260,31 @@ class Networking {
         let task = urlSession.dataTask(
             with: request,
             completionHandler: { data, response, error in
-                handler(Result.success(data ?? Data()))
+//                handler(Result.success(data ?? Data()))
+                do {
+                    // make sure this JSON is in the format we expect
+                    if let json = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any] {
+                        // try to read out a string array
+                        if (json["error"] as? Bool) == true {
+                            let messages = json["messages"] as? [String]
+                            handler(Result.failure(MessageError.error(messages: messages ?? ["N/A"])))
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(name: .showAlert,
+                                                                object: AlertData(title: Text("Error"),
+                                                                                  message: Text(messages?.joined() ?? "N/A"),
+                                                                                  dismissButton: .default(Text("OK")) {
+                                    handler(Result.failure(MessageError.error(messages: messages ?? ["N/A"])))
+
+                                }))}
+
+                        } else {
+                            handler(Result.success(data ?? Data()))
+                        }
+                    }
+                } catch let error as NSError {
+                    print("Failed to load: \(error.localizedDescription)")
+                }
+
 ////                handler()
 //                switch response.result {
 //                case .success:

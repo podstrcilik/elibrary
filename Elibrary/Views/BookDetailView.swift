@@ -13,6 +13,7 @@ struct BookDetailView: View {
     @State var isPresenting = false
     @EnvironmentObject var loggedUser: LoggedUser
     @StateObject var viewModel = BookDetailViewModel()
+    var readOnly = false
 
 
     var body: some View {
@@ -36,7 +37,7 @@ struct BookDetailView: View {
 //                    .frame(width: 300)
             }
             Spacer()
-            if loggedUser.isLibrarian {
+            if loggedUser.isLibrarian, !readOnly {
                 Button(action: {
                     isPresenting = true
 
@@ -48,28 +49,30 @@ struct BookDetailView: View {
                 .foregroundColor(.white)
                 .cornerRadius(5)
             }
-            Button(action: {
-                let user = UserModel(id: loggedUser.id, firstName: loggedUser.firstName, lastName: loggedUser.lastName, birthNumber: loggedUser.birthNumber, username: loggedUser.username, role: loggedUser.role, isApproved: true, isBanned: false, address: Address(street: loggedUser.street, city: loggedUser.city, postcode: loggedUser.postCode))
+            if !readOnly {
+                Button(action: {
+                    let user = UserModel(id: loggedUser.id, firstName: loggedUser.firstName, lastName: loggedUser.lastName, birthNumber: loggedUser.birthNumber, username: loggedUser.username, role: loggedUser.role, isApproved: true, isBanned: false, address: Address(street: loggedUser.street, city: loggedUser.city, postcode: loggedUser.postCode))
 
-                viewModel.borrowBook(book: book, user: user)
-            }) {
-                Text("Vypůjčit")
-                    .frame(maxWidth: .infinity, maxHeight: 50)
+                    viewModel.borrowBook(book: book, user: user)
+                }) {
+                    Text("Vypůjčit")
+                        .frame(maxWidth: .infinity, maxHeight: 50)
+                }
+                .background(book.numberOfLicences > 0 ? .blue : .gray)
+                .foregroundColor(.white)
+                .cornerRadius(5)
+                .disabled(book.numberOfLicences == 0)
             }
-            .background(book.numberOfLicences > 0 ? .blue : .gray)
-            .foregroundColor(.white)
-            .cornerRadius(5)
-            .disabled(book.numberOfLicences == 0)
 
         }.toolbar {
-            if loggedUser.isLibrarian {
+            if loggedUser.isLibrarian, !readOnly {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: {
                         showNewBookModal.toggle()
                     }) {
                         Text("Edit")
                     }
-                    
+
                 }
             }
         }

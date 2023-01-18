@@ -32,12 +32,10 @@ class NewAccountViewModel: ObservableObject {
             Networking.shared.sendPostRequest(to: "/api/v1/auth/register", body: user.encoded(), then: { (result) in
                 if case .success(let succesData) = result {
                     do {
-                        print("aa")
                         NotificationCenter.default.post(name: .showAlert,
-                                                        object: AlertData(title: Text("Content View Alert"),
-                                                                          message: Text("I'm shown on top of everything!"),
+                                                        object: AlertData(title: Text("Info"),
+                                                                          message: Text("Ůčet byl zaregistrován"),
                                                                           dismissButton: .default(Text("OK")) {
-                          print("Alert dismissed")
                         }))
 
                     } catch {

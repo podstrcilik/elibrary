@@ -25,9 +25,9 @@ struct NewBookView: View {
             Form {
                 VStack(alignment: .leading) {
                     baseView
-                    Divider()
+                    yearView
                     imageView
-                    Divider()
+
 //                    imageView
 //                    imageTitleView
                 }
@@ -60,18 +60,29 @@ struct NewBookView: View {
         Group {
             Text("Název knihy")
             TextField("Název", text: $viewModel.title)
+            Divider()
             Text("Autor knihy")
             TextField("Autor", text: $viewModel.author)
+            Divider()
             Text("Počet stránek")
             TextField("Stránky", value: $viewModel.numberOfPages, formatter: NumberFormatter())
                 .keyboardType(.numberPad)
+            Divider()
+        }
+    }
+
+    var yearView: some View {
+        Group {
             Text("Rok vydání")
             TextField("Rok", value: $viewModel.yearOfPublication, formatter: NumberFormatter())
                 .keyboardType(.numberPad)
+            Divider()
             Text("Dostupné množství")
             TextField("Množství", value: $viewModel.numberOfLicences, formatter: NumberFormatter())
                 .keyboardType(.numberPad)
+            Divider()
         }
+
     }
 
     var imageView: some View {
