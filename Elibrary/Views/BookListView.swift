@@ -12,6 +12,8 @@ struct BookListView: View {
     @State var books: [Book]
     @State private var showNewBookModal = false
     @StateObject var viewModel = BookListViewModel()
+    @State var selectedIndex: String?
+    @EnvironmentObject var loggedUser: LoggedUser
 
     var body: some View {
         NavigationView {
@@ -26,30 +28,70 @@ struct BookListView: View {
                             availableCount: book.numberOfLicences
                         )
                     }.swipeActions() {
-                        Button("Delete") {
-                            viewModel.books.removeAll(where: { $0.id == book.id})
-                        }.tint(.red)
-                        Button("Přidělit") {
-                            
-                        }.tint(.blue)
+                        if loggedUser.isLibrarian {
+                            Button("Delete") {
+                                viewModel.deleteBook(id: book.id)
+                            }.tint(.red)
+                        }
                     }
                 }
             }
             .refreshable {
                 viewModel.fetchBooks()
             }
-            .searchable(
-                text: $searchText,
-                prompt: "Vyhledej literaturu"
-            )
+            .searchable(text: $searchText, prompt: "Vyhledej literaturu")
+            .onChange(of: searchText) { searchText in
+                viewModel.fetchBooks(search: searchText)
+            }
+
             .navigationTitle("Knihotéka")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showNewBookModal.toggle()
-                    }) {
-                        Image(systemName: "plus")
+                    if loggedUser.isLibrarian {
+                        Button(action: {
+                            showNewBookModal.toggle()
+                        }) {
+                            Image(systemName: "plus")
+                        }
                     }
+                    Menu(content: {
+                        Section("Řadit podle") {
+                            Button(action: {
+                                //                            showNewBookModal.toggle()
+                                viewModel.orderKey = "title"
+                                viewModel.fetchBooks()
+                                selectedIndex = viewModel.orderKey
+                            }) {
+                                if selectedIndex == "title" {
+                                    Label("Název", systemImage: "checkmark")
+                                } else {
+                                    Text("Název")
+                                }
+                            }
+                            Button(action: {
+                                viewModel.orderKey = "yearOfPublication"
+                                viewModel.fetchBooks()
+                                selectedIndex = viewModel.orderKey
+                            }) {
+                                if selectedIndex == "yearOfPublication" {
+                                    Label("Rok", systemImage: "checkmark")
+                                } else {
+                                    Text("Rok")
+                                }
+                            }
+                            Button(action: {
+                                viewModel.orderKey = "author"
+                                viewModel.fetchBooks()
+                                selectedIndex = viewModel.orderKey
+                            }) {
+                                if selectedIndex == "author" {
+                                    Label("Autor", systemImage: "checkmark")
+                                } else {
+                                    Text("Autor")
+                                }
+                            }
+                        }
+                    }, label: { Image(systemName: "ellipsis.circle") })
                 }
             }
         }

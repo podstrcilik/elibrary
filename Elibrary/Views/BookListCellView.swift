@@ -14,6 +14,7 @@ struct BookListCellView: View {
     @State var pageCount: Int
     @State var yearPublished: String
     @State var availableCount: Int
+    @State var bottomTitle: String? = nil
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -31,6 +32,9 @@ struct BookListCellView: View {
                     Text(yearPublished)
                         
                 }.font(.subheadline)
+                if let bottomTitle {
+                    Text(bottomTitle)
+                }
             }
         }.foregroundColor(availableCount > 0 ? .black : .gray)
     }
