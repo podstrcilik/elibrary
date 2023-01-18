@@ -9,11 +9,26 @@ import Foundation
 
 class CustomerViewModel: ObservableObject {
     @Published var customers: [UserModel] = []
+    var orderKey: String?
 
     init() {}
 
-    public func fetch() {
-        Networking.shared.getRequest(to: "/api/v1/user", then: { (result) in
+    public func fetch(search: String? = nil) {
+        var url = "/api/v1/user"
+        if let search {
+            url += "?search=\(search)"
+        }
+
+        if let orderKey {
+            if search != nil {
+                url += "&"
+            } else {
+                url += "?"
+            }
+            url += "order[\(orderKey)]=DESC"
+        }
+
+        Networking.shared.getRequest(to: url, then: { (result) in
             if case .success(let succesData) = result {
                 do {
                     let results = try JSONDecoder().decode(GenericCollectionNetworkLayer<UserModel>.self, from: succesData)
@@ -27,6 +42,39 @@ class CustomerViewModel: ObservableObject {
             }
         })
     }
+
+    func makeBanRequest(userId: String) {
+        Networking.shared.sendPutRequest(to: "/api/v1/user/\(userId)/ban", body: nil, then: { (result) in
+            if case .success(let succesData) = result {
+                do {
+                    DispatchQueue.main.async {
+                        self.customers = []
+                        self.fetch()
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            }
+        })
+    }
+
+    func makeApproveRequest(userId: String) {
+        Networking.shared.sendPutRequest(to: "/api/v1/user/\(userId)/approve", body: nil, then: { (result) in
+            if case .success(let succesData) = result {
+                do {
+                    DispatchQueue.main.async {
+                        self.customers = []
+                        self.fetch()
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            }
+        })
+    }
+
 }
 
 struct CustomerListApi: Codable {

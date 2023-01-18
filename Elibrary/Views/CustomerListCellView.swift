@@ -13,12 +13,21 @@ struct CustomerListCellView: View {
     @State var name: String
     @State var personalIdentificationNumber: String
     @State var address: String
+    @State var banned: Bool
+    @State var approved: Bool
     
     var body: some View {
         ZStack(alignment: .leading) {
             VStack(alignment: .leading) {
-                Text(username)
-                    .font(.headline)
+                HStack {
+                    Text(username)
+                        .font(.headline)
+                    Spacer()
+                    Image(systemName: "circle.fill")
+                        .foregroundColor(getCircleColor())
+                        .font(.system(size: 10, weight: .bold))
+                        .opacity((banned || (!approved)) ? 1 : 0)
+                }
                 HStack(alignment: .center) {
                     Text(name)
                 }.font(.subheadline)
@@ -38,6 +47,16 @@ struct CustomerListCellView: View {
         }
         
     }
+
+    func getCircleColor() -> Color {
+        if banned {
+            return .red
+        }
+        if !approved {
+            return .orange
+        }
+        return .black
+    }
 }
 
 struct CustomerListCellView_Previews: PreviewProvider {
@@ -47,7 +66,9 @@ struct CustomerListCellView_Previews: PreviewProvider {
             username: UserModel.sampleUser.username,
             name: UserModel.sampleUser.firstName,
             personalIdentificationNumber: UserModel.sampleUser.birthNumber,
-            address: "UserModel.sampleUser.email"
+            address: "UserModel.sampleUser.email",
+            banned: false,
+            approved: false
         )
     }
 }
