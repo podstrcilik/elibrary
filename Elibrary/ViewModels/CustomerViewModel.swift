@@ -45,15 +45,10 @@ class CustomerViewModel: ObservableObject {
 
     func makeBanRequest(userId: String) {
         Networking.shared.sendPutRequest(to: "/api/v1/user/\(userId)/ban", body: nil, then: { (result) in
-            if case .success(let succesData) = result {
-                do {
-                    DispatchQueue.main.async {
-                        self.customers = []
-                        self.fetch()
-                    }
-                }
-                catch {
-                    print(error)
+            if case .success(_) = result {
+                DispatchQueue.main.async {
+                    self.customers = []
+                    self.fetch()
                 }
             }
         })
@@ -61,22 +56,13 @@ class CustomerViewModel: ObservableObject {
 
     func makeApproveRequest(userId: String) {
         Networking.shared.sendPutRequest(to: "/api/v1/user/\(userId)/approve", body: nil, then: { (result) in
-            if case .success(let succesData) = result {
-                do {
-                    DispatchQueue.main.async {
-                        self.customers = []
-                        self.fetch()
-                    }
-                }
-                catch {
-                    print(error)
+            if case .success(_) = result {
+                DispatchQueue.main.async {
+                    self.customers = []
+                    self.fetch()
                 }
             }
         })
     }
 
-}
-
-struct CustomerListApi: Codable {
-    var customers: [UserModel]
 }
