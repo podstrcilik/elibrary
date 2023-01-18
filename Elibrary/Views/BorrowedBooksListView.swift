@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-struct CirculationDate: Codable {
-    var date: String
-}
-
-struct Circulation: Codable, Identifiable {
-    var id: String
-    var book: Book
-    var borrower: UserModel
-    var borrowedAt: CirculationDate? = nil
-    var returnedAt: CirculationDate? = nil
-}
-
 struct BorrowedBooksListView: View {
     @State private var searchText = ""
     @State var books: [Book]

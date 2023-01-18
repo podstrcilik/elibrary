@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct AccountView: View {
-    @State var user: UserModel// = UserModel(id: "", firstName: "", lastName: "", birthNumber: "", username: "", role: "", isApproved: true, isBanned: false, address: Address(street: "", city: "", postcode: ""))
+    @State var user: UserModel
     @State private var showEditModal = false
 
     var body: some View {
         Form {
             VStack(alignment: .leading) {
-                    userView
-                    addressView
-                    Divider()
-                    Text("Rodné číslo")
+                userView
+                addressView
+                Divider()
+                Text("Rodné číslo")
                 TextField("Rodné číslo", text: $user.birthNumber)
             }.allowsHitTesting(false)
         }
@@ -34,7 +34,7 @@ struct AccountView: View {
         .sheet(isPresented: $showEditModal, onDismiss: {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 
-                Networking.shared.getRequest(to: "/api/v1/user/\(user.id)", then: { (result) in
+                Networking.shared.getRequest(to: "/api/v1/auth/profile", then: { (result) in
                     if case .success(let succesData) = result {
                         do {
                             let results = try JSONDecoder().decode(GenericNetworkLayer<UserModel>.self, from: succesData)
@@ -52,7 +52,7 @@ struct AccountView: View {
         ) {
             NavigationView {
                 EditAccountView(user: user, showModal: $showEditModal)
-                .navigationTitle("Editace účtu")
+                    .navigationTitle("Editace účtu")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Zavřít") {
@@ -75,10 +75,6 @@ struct AccountView: View {
             Divider()
             Text("Příjmení")
             TextField("Příjmení", text: $user.lastName)
-//            Text("Heslo")
-//            SecureField(
-//                "Heslo",
-//                text: $user.password)
         }
     }
 
@@ -95,7 +91,6 @@ struct AccountView: View {
             TextField("PSČ", text: $user.address.postcode)
         }
     }
-
 }
 
 struct AccountView_Previews: PreviewProvider {

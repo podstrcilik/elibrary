@@ -17,8 +17,6 @@ class BorrowedBooksViewModel: ObservableObject {
     init() {}
 
     public func fetchBooks(history: Bool) {
-
-
         var url = "/api/v1/circulation?borrowerId=\(userId ?? "")"
 
         if history {
@@ -33,7 +31,6 @@ class BorrowedBooksViewModel: ObservableObject {
                 do {
                     let results = try JSONDecoder().decode(GenericCollectionNetworkLayer<Circulation>.self, from: succesData)
                     DispatchQueue.main.async {
-//                        self.books = results.data
                         if !history {
                             self.activeCirculations = results.data
                         } else {

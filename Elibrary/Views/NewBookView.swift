@@ -17,8 +17,6 @@ struct NewBookView: View {
     
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedItemTitle: PhotosPickerItem? = nil
-//    @State private var selectedImageData: Data? = nil
-//    @State private var selectedImageDataTitle: Data? = nil
 
     var body: some View {
         VStack {
@@ -27,16 +25,12 @@ struct NewBookView: View {
                     baseView
                     yearView
                     imageView
-
-//                    imageView
-//                    imageTitleView
                 }
                 VStack(alignment: .leading) {
                     imageTitleView
                 }
             }
             Button(action: {
-//                viewModel.image = UIImage(data: viewModel.selectedImageData!)
                 if let data = viewModel.selectedImageData {
                     viewModel.coverImage = UIImage(data: data)
                 }
@@ -50,7 +44,6 @@ struct NewBookView: View {
                     .frame(maxWidth: .infinity, maxHeight: 50)
             }
             .buttonStyle(ConfirmButtonStyle())
-//            .disabled(!book.isValid)
         }
         .onAppear(perform: {updateViewModel()})
         .background(Color(.systemGray6))
@@ -96,7 +89,6 @@ struct NewBookView: View {
                 }
                 .onChange(of: selectedItem) { newItem in
                     Task {
-                        // Retrieve selected asset in the form of Data
                         if let data = try? await newItem?.loadTransferable(type: Data.self) {
                             viewModel.selectedImageData = data
                         }
@@ -124,7 +116,6 @@ struct NewBookView: View {
                 }
                 .onChange(of: selectedItemTitle) { newItem in
                     Task {
-                        // Retrieve selected asset in the form of Data
                         if let data = try? await newItem?.loadTransferable(type: Data.self) {
                             viewModel.selectedImageDataTitle = data
                         }

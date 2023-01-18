@@ -61,7 +61,8 @@ class NewAccountViewModel: ObservableObject {
             if password.isEmpty {
                 user.password = nil
             }
-            Networking.shared.sendPutRequest(to: "/api/v1/user/\(id)", body: user.encoded(), then: { (result) in
+            let url = role == "Librarian" ? "/api/v1/user/\(id)" : "/api/v1/auth/profile"
+            Networking.shared.sendPutRequest(to: url, body: user.encoded(), then: { (result) in
                 if case .success(let succesData) = result {
                     do {
                         print("aa")

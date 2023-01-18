@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-struct CirculationPost: Codable {
-    var book: Book
-    var borrower: UserModel
-}
-
-
 class BookDetailViewModel: ObservableObject {
 //    @Published var books: [Book] = []
 //    var orderKey: String?
@@ -27,14 +21,7 @@ class BookDetailViewModel: ObservableObject {
             case .success(let success):
                 print("Ok")
             case .failure(MessageError.error(messages: let messages)):
-//                    DispatchQueue.main.async {
-//                        NotificationCenter.default.post(name: .showAlert,
-//                                                        object: AlertData(title: Text("Error"),
-//                                                                          message: Text(messages.joined()),
-//                                                                          dismissButton: .default(Text("OK")) {
-//                        }))
-//                    }
-                print("a")
+                break
             case .failure(_):
                 break
             }

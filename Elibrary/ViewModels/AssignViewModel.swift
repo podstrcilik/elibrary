@@ -18,15 +18,6 @@ class AssignViewModel: ObservableObject {
             url += "?search=\(search)"
         }
 
-//        if let orderKey {
-//            if search != nil {
-//                url += "&"
-//            } else {
-//                url += "?"
-//            }
-//            url += "order[\(orderKey)]=DESC"
-//        }
-
         Networking.shared.getRequest(to: url, then: { (result) in
             if case .success(let succesData) = result {
                 do {
@@ -50,14 +41,7 @@ class AssignViewModel: ObservableObject {
             case .success(let success):
                 print("Ok")
             case .failure(MessageError.error(messages: let messages)):
-                //                    DispatchQueue.main.async {
-                //                        NotificationCenter.default.post(name: .showAlert,
-                //                                                        object: AlertData(title: Text("Error"),
-                //                                                                          message: Text(messages.joined()),
-                //                                                                          dismissButton: .default(Text("OK")) {
-                //                        }))
-                //                    }
-                print("a")
+                break
             case .failure(_):
                 break
             }

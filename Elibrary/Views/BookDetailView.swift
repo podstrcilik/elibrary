@@ -34,7 +34,6 @@ struct BookDetailView: View {
                 Spacer()
                 CustomImageView(urlString: "https://bookify-backend.dev07.b2a.cz/api/v1/file/\(book.frontPageFileId ?? "0")/raw")
                 Spacer()
-//                    .frame(width: 300)
             }
             Spacer()
             if loggedUser.isLibrarian, !readOnly {
