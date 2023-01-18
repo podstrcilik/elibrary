@@ -49,13 +49,16 @@ import SwiftUI
 //        task.resume()
 //    }
 //}
-
+enum MessageError: Error {
+    case error(messages: [String])
+}
 
 class Networking {
 
     var urlSession = URLSession.shared
     var baseUrl = "https://bookify-backend.dev07.b2a.cz"
     var apiKey: String?
+
 
 
     static let shared = Networking()
@@ -79,6 +82,79 @@ class Networking {
 
         request.httpMethod = "POST"
         request.httpBody = body
+
+        let task = urlSession.dataTask(
+            with: request,
+            completionHandler: { data, response, error in
+
+                do {
+                    // make sure this JSON is in the format we expect
+                    if let json = try JSONSerialization.jsonObject(with: data ?? Data(), options: []) as? [String: Any] {
+                        // try to read out a string array
+                        if (json["error"] as? Bool) == true {
+                            let messages = json["messages"] as? [String]
+                            handler(Result.failure(MessageError.error(messages: messages ?? ["N/A"])))
+                            DispatchQueue.main.async {
+                                NotificationCenter.default.post(name: .showAlert,
+                                                                object: AlertData(title: Text("Error"),
+                                                                                  message: Text(messages?.joined() ?? "N/A"),
+                                                                                  dismissButton: .default(Text("OK")) {
+                                    handler(Result.failure(MessageError.error(messages: messages ?? ["N/A"])))
+
+                                }))}
+
+                        } else {
+                            handler(Result.success(data ?? Data()))
+                        }
+//                        if let names = json["names"] as? [String] {
+//                            print(names)
+//                        }
+                    }
+                } catch let error as NSError {
+                    print("Failed to load: \(error.localizedDescription)")
+                }
+
+
+//                handler(Result.success(data ?? Data()))
+                print("a")
+
+////                handler()
+//                switch response.result {
+//                case .success:
+//                    handler(Result.Success(response.result.value))
+//                    break
+//                case .failure(let error):
+//                    handler(Result.Failure(.serverConnectionFailure))
+//                    break
+//                }
+                // Validate response and call handler
+                //                ...
+            }
+        )
+
+        task.resume()
+    }
+
+    func sendPutRequest(
+        to url: String,
+        body: Data?,
+        then handler: @escaping (Result<Data, Error>) -> Void
+    ) {
+        // To ensure that our request is always sent, we tell
+        // the system to ignore all local cache data:
+        var request = URLRequest(
+            url: URL(string: baseUrl+url)!,
+            cachePolicy: .reloadIgnoringLocalCacheData
+        )
+
+        if let apiKey {
+            request.addValue("Basic \(apiKey ?? "")", forHTTPHeaderField: "Authorization")
+        }
+
+        request.httpMethod = "PUT"
+        if let body {
+            request.httpBody = body
+        }
 
         let task = urlSession.dataTask(
             with: request,
@@ -227,8 +303,11 @@ class Networking {
     ) {
         // To ensure that our request is always sent, we tell
         // the system to ignore all local cache data:
+        guard let url = URL(string: baseUrl+url) else {
+            return
+        }
         var request = URLRequest(
-            url: URL(string: baseUrl+url)!,
+            url: url,
             cachePolicy: .reloadIgnoringLocalCacheData
         )
 
@@ -316,7 +395,7 @@ class Networking {
         semaphore.wait()
     }
 
-    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+    func uploadImage(paramName: String, fileName: String, image: UIImage, handler: @escaping (Result<Data, Error>) -> Void) {
         let url = URL(string: "https://bookify-backend.dev07.b2a.cz/api/v1/file/upload")
 
         // generate boundary string using a unique per-app string
@@ -349,13 +428,53 @@ class Networking {
 
         // Send a POST request to the URL, with the data we created earlier
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
-            if error == nil {
-                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-                if let json = jsonData as? [String: Any] {
-                    print(json)
-                }
-            }
+            handler(Result.success(responseData ?? Data()))
+//            if error == nil {
+//                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+//                if let json = jsonData as? [String: Any] {
+//                    print(json)
+//                }
+//            }
         }).resume()
     }
+
+    func deleteRequest(
+        to url: String,
+        then handler: @escaping (Result<Data, Error>) -> Void
+    ) {
+        // To ensure that our request is always sent, we tell
+        // the system to ignore all local cache data:
+        var request = URLRequest(
+            url: URL(string: baseUrl+url)!,
+            cachePolicy: .reloadIgnoringLocalCacheData
+        )
+
+        if let apiKey {
+            request.addValue("Basic \(apiKey ?? "")", forHTTPHeaderField: "Authorization")
+        }
+
+        request.httpMethod = "DELETE"
+
+        let task = urlSession.dataTask(
+            with: request,
+            completionHandler: { data, response, error in
+                handler(Result.success(data ?? Data()))
+////                handler()
+//                switch response.result {
+//                case .success:
+//                    handler(Result.Success(response.result.value))
+//                    break
+//                case .failure(let error):
+//                    handler(Result.Failure(.serverConnectionFailure))
+//                    break
+//                }
+                // Validate response and call handler
+                //                ...
+            }
+        )
+
+        task.resume()
+    }
+
 
 }

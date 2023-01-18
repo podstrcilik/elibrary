@@ -36,10 +36,14 @@ struct NewBookView: View {
                 }
             }
             Button(action: {
+//                viewModel.image = UIImage(data: viewModel.selectedImageData!)
+                if let data = viewModel.selectedImageData {
+                    viewModel.coverImage = UIImage(data: data)
+                }
+                if let data = viewModel.selectedImageDataTitle {
+                    viewModel.frontPageImage = UIImage(data: data)
+                }
                 viewModel.uploadImage()
-
-//                let uiImage = UIImage(data: viewModel.selectedImageData)
-                Networking.shared.uploadImage(paramName: "image", fileName: "pepedas", image: UIImage(data: viewModel.selectedImageData!)!)
                 self.showModal.toggle()
             }) {
                 Text(editMode ? "Upravit" : "Přidat")
@@ -48,6 +52,7 @@ struct NewBookView: View {
             .buttonStyle(ConfirmButtonStyle())
 //            .disabled(!book.isValid)
         }
+        .onAppear(perform: {updateViewModel()})
         .background(Color(.systemGray6))
     }
 
@@ -123,6 +128,21 @@ struct NewBookView: View {
                     .frame(width: 250, height: 250)
             }
         }
+    }
+
+    func updateViewModel() {
+        if book.title.isEmpty {
+            return
+        }
+        viewModel.title = book.title
+        viewModel.author = book.author
+        viewModel.yearOfPublication = book.yearOfPublication
+        viewModel.numberOfPages = book.numberOfPages
+        viewModel.numberOfLicences = book.numberOfLicences
+        viewModel.frontPageFileId = book.frontPageFileId
+        viewModel.coverFileId = book.coverFileId
+        viewModel.bookId = book.id
+        viewModel.editMode = true
     }
 
 

@@ -15,13 +15,10 @@ struct UserModel: Identifiable, Codable {
     var birthNumber: String
     var username: String
     var role: String
+    var password: String? = nil
     var isApproved: Bool
     var isBanned: Bool
     var address: Address
-//    var name: String
-//    var personalIdentificationNumber: String
-//    var address: String
-//    var email: String
 }
 
 
@@ -42,17 +39,50 @@ extension UserModel {
 
 
 struct UserModelNetwork: Codable, Identifiable {
+    var apiKey: String
     var id: String
     var firstName: String
     var lastName: String
-    var apiKey: String
+    var birthNumber: String
+    var username: String
+    var role: String
+    var password: String? = nil
+    var isApproved: Bool
+    var isBanned: Bool
+    var address: Address
+
 }
 
 
 class LoggedUser: ObservableObject {
     @Published var apiKey: String
-    init(apiKey: String) {
+    @Published var id: String
+    @Published var firstName: String
+    @Published var lastName: String
+    @Published var birthNumber: String
+    @Published var username: String
+    @Published var role: String
+    @Published var password: String? = nil
+    @Published var street: String
+    @Published var city: String
+    @Published var postCode: String
+
+    var isLibrarian: Bool {
+        return role == "Librarian"
+    }
+
+    init(apiKey: String, id: String, firstName: String, lastName: String, birthNumber: String, username: String, role: String, password: String? = nil, street: String, city: String, postCode: String) {
         self.apiKey = apiKey
+        self.id = id
+        self.firstName = firstName
+        self.lastName = lastName
+        self.birthNumber = birthNumber
+        self.username = username
+        self.role = role
+        self.password = password
+        self.street = street
+        self.city = city
+        self.postCode = postCode
     }
 }
 

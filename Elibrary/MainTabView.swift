@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MainTabView: View {
     @EnvironmentObject var loggedUser: LoggedUser
+    @State private var showAlert = false
+    @State private var alertData = AlertData.empty
 
     var body: some View {
         TabView {
@@ -16,18 +18,38 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Knihotéka", systemImage: "books.vertical")
                 }
-            
-            CustomerListView(customers: UserModel.sampleData)
+
+            if loggedUser.isLibrarian {
+                CustomerListView(customers: UserModel.sampleData)
+                    .tabItem {
+                        Label("Čtenáři", systemImage: "person.3.sequence.fill")
+                    }
+            }
+
+            BorrowedBooksListView(books: Book.sampleData)
                 .tabItem {
-                    Label("Čtenáři", systemImage: "person.3.sequence.fill")
+                    Label("Zapůjčené", systemImage: "books.vertical")
                 }
+
             NavigationView {
-                AccountView(user: UserModel.sampleUser)
+                AccountView(user: UserModel(id: loggedUser.id, firstName: loggedUser.firstName, lastName: loggedUser.lastName, birthNumber: loggedUser.birthNumber, username: loggedUser.username, role: loggedUser.role, isApproved: true, isBanned: false, address: Address(street: loggedUser.street, city: loggedUser.city, postcode: loggedUser.postCode)))
             }
             .tabItem {
                 Label("Můj účet", systemImage: "person.crop.circle.fill")
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .showAlert)) { notif in
+          if let data = notif.object as? AlertData {
+            alertData = data
+            showAlert = true
+          }
+        }
+        .alert(isPresented: $showAlert) {
+          Alert(title: alertData.title,
+                message: alertData.message,
+                dismissButton: alertData.dismissButton)
+        }
+
     }
 }
 
