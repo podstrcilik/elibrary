@@ -17,12 +17,11 @@ final class LoginViewModel: ObservableObject {
 
     // MARK: - Properties
     func logIn() {
-        let test = LoginNetworkModel(username: name, password: password)
-//        let test = LoginNetworkModel(username: "kubrt", password: "asd")
+//        let test = LoginNetworkModel(username: name, password: password)
+                let test = LoginNetworkModel(username: "kubrt", password: "asd")
 
-        _ = Networking.shared.sendPostRequest(to: "/api/v1/auth/login", body: test.encoded(), then: { (result) in
+        Networking.shared.sendPostRequest(to: "/api/v1/auth/login", body: test.encoded(), then: { (result) in
             if case .success(let succesData) = result {
-                print("\(succesData.prettyPrintedJSONString) unread messages.")
                 do {
                     let results = try JSONDecoder().decode(GenericNetworkLayer<UserModelNetwork>.self, from: succesData)
                     self.loggedUser = results.data
@@ -37,29 +36,14 @@ final class LoginViewModel: ObservableObject {
                     self.user.street = results.data.address.street
                     self.user.postCode = results.data.address.postcode
                     Networking.shared.apiKey = results.data.apiKey
-                    self.isPresented = true // ??
-                    print("a")
+                    DispatchQueue.main.async {
+                        self.isPresented = true
+                    }
                 }
                 catch {
                     print(error)
                 }
-
-
             }
-
-//            print(result)
         })
-        print("a")
-    }
-}
-
-
-extension Data {
-    var prettyPrintedJSONString: NSString? { /// NSString gives us a nice sanitized debugDescription
-        guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
-              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
-              let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }
-
-        return prettyPrintedString
     }
 }

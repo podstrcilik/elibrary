@@ -179,7 +179,6 @@ class Networking {
 
         let boundary = "Boundary-\(UUID().uuidString)"
         var body = ""
-        var error: Error? = nil
         for param in parameters {
           if param["disabled"] == nil {
             let paramName = param["key"]!
@@ -194,7 +193,6 @@ class Networking {
               body += "\r\n\r\n\(paramValue)\r\n"
             } else {
               let paramSrc = param["src"] as! String
-//              let fileContent = String(data: image, encoding: .utf8)!
               body += "; filename=\"\(paramSrc)\"\r\n"
                 + "Content-Type: \"content-type header\"\r\n\r\n\(image)\r\n"
             }
@@ -262,12 +260,6 @@ class Networking {
         // Send a POST request to the URL, with the data we created earlier
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
             handler(Result.success(responseData ?? Data()))
-//            if error == nil {
-//                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-//                if let json = jsonData as? [String: Any] {
-//                    print(json)
-//                }
-//            }
         }).resume()
     }
 
@@ -283,7 +275,7 @@ class Networking {
         )
 
         if let apiKey {
-            request.addValue("Basic \(apiKey ?? "")", forHTTPHeaderField: "Authorization")
+            request.addValue("Basic \(apiKey)", forHTTPHeaderField: "Authorization")
         }
 
         request.httpMethod = "DELETE"
@@ -292,17 +284,6 @@ class Networking {
             with: request,
             completionHandler: { data, response, error in
                 handler(Result.success(data ?? Data()))
-////                handler()
-//                switch response.result {
-//                case .success:
-//                    handler(Result.Success(response.result.value))
-//                    break
-//                case .failure(let error):
-//                    handler(Result.Failure(.serverConnectionFailure))
-//                    break
-//                }
-                // Validate response and call handler
-                //                ...
             }
         )
 

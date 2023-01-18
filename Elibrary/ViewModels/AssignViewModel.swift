@@ -38,9 +38,9 @@ class AssignViewModel: ObservableObject {
         Networking.shared.sendPostRequest(to: "/api/v1/circulation", body: body.encoded(), then: { (result) in
             
             switch result {
-            case .success(let success):
+            case .success(_):
                 print("Ok")
-            case .failure(MessageError.error(messages: let messages)):
+            case .failure(MessageError.error(messages: _)):
                 break
             case .failure(_):
                 break

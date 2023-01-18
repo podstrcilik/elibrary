@@ -30,17 +30,12 @@ class NewAccountViewModel: ObservableObject {
 
         if isRegistration {
             Networking.shared.sendPostRequest(to: "/api/v1/auth/register", body: user.encoded(), then: { (result) in
-                if case .success(let succesData) = result {
-                    do {
+                if case .success(_) = result {
                         NotificationCenter.default.post(name: .showAlert,
                                                         object: AlertData(title: Text("Info"),
                                                                           message: Text("Ůčet byl zaregistrován"),
                                                                           dismissButton: .default(Text("OK")) {
                         }))
-
-                    } catch {
-                        print(error)
-                    }
                 }
             })
 
@@ -49,12 +44,7 @@ class NewAccountViewModel: ObservableObject {
 
         if !editMode {
             Networking.shared.sendPostRequest(to: "/api/v1/user", body: user.encoded(), then: { (result) in
-                if case .success(let succesData) = result {
-                    do {
-                        print("aa")
-                    } catch {
-                        print(error)
-                    }
+                if case .success(_) = result {
                 }
             })
         } else {
@@ -63,12 +53,7 @@ class NewAccountViewModel: ObservableObject {
             }
             let url = role == "Librarian" ? "/api/v1/user/\(id)" : "/api/v1/auth/profile"
             Networking.shared.sendPutRequest(to: url, body: user.encoded(), then: { (result) in
-                if case .success(let succesData) = result {
-                    do {
-                        print("aa")
-                    } catch {
-                        print(error)
-                    }
+                if case .success(_) = result {
                 }
             })
 

@@ -50,18 +50,9 @@ class BookListViewModel: ObservableObject {
 
     public func deleteBook(id: String) {
         Networking.shared.deleteRequest(to: "/api/v1/book/\(id)", then: { (result) in
-            if case .success(let succesData) = result {
-                do {
+            if case .success(_) = result {
                     self.fetchBooks()
-                }
-                catch {
-                    print(error)
-                }
             }
         })
     }
-}
-
-struct BookListApi: Codable {
-    var books: [Book]
 }
