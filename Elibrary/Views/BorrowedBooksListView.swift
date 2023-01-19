@@ -14,6 +14,7 @@ struct BorrowedBooksListView: View {
     @State private var showNewBookModal = false
     @StateObject var viewModel = BorrowedBooksViewModel()
     @State var selectedIndex: String?
+    var userId: String?
     @EnvironmentObject var loggedUser: LoggedUser
 
     var body: some View {
@@ -65,7 +66,7 @@ struct BorrowedBooksListView: View {
             .navigationTitle("Zapůjčené knihy")
         }
         .onAppear(perform: {
-            viewModel.userId = loggedUser.id
+            viewModel.userId = userId ?? loggedUser.id
             viewModel.fetchBooks(history: false)
             viewModel.fetchBooks(history: true)
         })

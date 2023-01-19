@@ -10,6 +10,10 @@ import SwiftUI
 struct AccountView: View {
     @State var user: UserModel
     @State private var showEditModal = false
+    @EnvironmentObject var loggedUser: LoggedUser
+
+    @State private var showCirculations = false
+
 
     var body: some View {
         Form {
@@ -28,6 +32,13 @@ struct AccountView: View {
                     showEditModal.toggle()
                 }) {
                     Text("Edit")
+                }
+                if loggedUser.isLibrarian {
+                    Button(action: {
+                        showCirculations.toggle()
+                    }) {
+                        Image(systemName: "books.vertical.circle")
+                    }
                 }
             }
         }
@@ -62,6 +73,18 @@ struct AccountView: View {
                     }
             }
         }
+        .sheet(isPresented: $showCirculations, onDismiss: {        }
+        ) {
+            BorrowedBooksListView(books: [], userId: user.id)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Zavřít") {
+                            showCirculations.toggle()
+                        }
+                    }
+                }
+        }
+
 
     }
 
