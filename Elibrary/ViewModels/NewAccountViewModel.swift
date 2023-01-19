@@ -31,11 +31,13 @@ class NewAccountViewModel: ObservableObject {
         if isRegistration {
             Networking.shared.sendPostRequest(to: "/api/v1/auth/register", body: user.encoded(), then: { (result) in
                 if case .success(_) = result {
+                    DispatchQueue.main.async {
                         NotificationCenter.default.post(name: .showAlert,
                                                         object: AlertData(title: Text("Info"),
                                                                           message: Text("Ůčet byl zaregistrován"),
                                                                           dismissButton: .default(Text("OK")) {
                         }))
+                    }
                 }
             })
 

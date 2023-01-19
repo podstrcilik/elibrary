@@ -37,6 +37,7 @@ struct LoginView: View {
                         "Jméno",
                         text: $viewModel.name
                     )
+                    .autocorrectionDisabled(true)
                 }.padding()
                 VStack(alignment: .leading) {
                     Text("Heslo")

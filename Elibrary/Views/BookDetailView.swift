@@ -50,7 +50,7 @@ struct BookDetailView: View {
                 .foregroundColor(.white)
                 .cornerRadius(5)
             }
-            if !readOnly {
+            if !readOnly, !loggedUser.isLibrarian {
                 Button(action: {
                     let user = UserModel(id: loggedUser.id, firstName: loggedUser.firstName, lastName: loggedUser.lastName, birthNumber: loggedUser.birthNumber, username: loggedUser.username, role: loggedUser.role, isApproved: true, isBanned: false, address: Address(street: loggedUser.street, city: loggedUser.city, postcode: loggedUser.postCode))
 

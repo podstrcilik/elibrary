@@ -51,6 +51,7 @@ struct CustomerListView: View {
                 viewModel.fetch()
             }
             .searchable(text: $searchText, prompt: "Vyhledej čtenáře")
+            .disableAutocorrection(true)
             .onChange(of: searchText) { searchText in
                 viewModel.fetch(search: searchText)
             }

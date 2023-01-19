@@ -42,12 +42,15 @@ struct EditAccountView: View {
         Group {
             Text("Uživatelské jméno")
             TextField("Uživatelské jméno", text: $viewModel.username)
+                .autocorrectionDisabled(true)
             Divider()
             Text("Jméno")
             TextField("Jméno", text: $viewModel.firstName)
+                .autocorrectionDisabled(true)
             Divider()
             Text("Příjmení")
             TextField("Příjmení", text: $viewModel.lastName)
+                .autocorrectionDisabled(true)
             Text("Heslo")
             SecureField(
                 "Heslo",
@@ -60,12 +63,15 @@ struct EditAccountView: View {
             Divider()
             Text("Ulice")
             TextField("Ulice", text: $viewModel.street)
+                .autocorrectionDisabled(true)
             Divider()
             Text("Město")
             TextField("Město", text: $viewModel.city)
+                .autocorrectionDisabled(true)
             Divider()
             Text("PSČ")
             TextField("PSČ", text: $viewModel.postcode)
+                .autocorrectionDisabled(true)
         }
     }
 

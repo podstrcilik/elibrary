@@ -39,6 +39,7 @@ struct BookListView: View {
             .refreshable {
                 viewModel.fetchBooks()
             }
+            .disableAutocorrection(true)
             .searchable(text: $searchText, prompt: "Vyhledej literaturu")
             .onChange(of: searchText) { searchText in
                 viewModel.fetchBooks(search: searchText)

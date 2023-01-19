@@ -26,10 +26,12 @@ struct MainTabView: View {
                     }
             }
 
-            BorrowedBooksListView(books: [])
-                .tabItem {
-                    Label("Zapůjčené", systemImage: "books.vertical.circle")
-                }
+            if !loggedUser.isLibrarian {
+                BorrowedBooksListView(books: [])
+                    .tabItem {
+                        Label("Zapůjčené", systemImage: "books.vertical.circle")
+                    }
+            }
 
             NavigationView {
                 AccountView(user: UserModel(id: loggedUser.id, firstName: loggedUser.firstName, lastName: loggedUser.lastName, birthNumber: loggedUser.birthNumber, username: loggedUser.username, role: loggedUser.role, isApproved: true, isBanned: false, address: Address(street: loggedUser.street, city: loggedUser.city, postcode: loggedUser.postCode)))
