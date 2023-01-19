@@ -17,6 +17,9 @@ class CustomerViewModel: ObservableObject {
         var url = "/api/v1/user"
         if let search {
             url += "?search=\(search)"
+            if search.count <= 2, search.count != 0 {
+                return
+            }
         }
 
         if let orderKey {

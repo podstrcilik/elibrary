@@ -29,7 +29,7 @@ struct BorrowedBooksListView: View {
                                 pageCount: book.numberOfPages,
                                 yearPublished:  "\(book.yearOfPublication)",
                                 availableCount: book.numberOfLicences,
-                                bottomTitle: "Vypůjčeno: \(circulation.borrowedAt?.date.dropLast(10) ?? "N/A")"
+                                bottomTitle: "Vypůjčeno do: \(circulation.expectedReturnAt?.date.dropLast(10) ?? "N/A")"
                             )
                         }.swipeActions() {
                                 Button("Vrátit") {

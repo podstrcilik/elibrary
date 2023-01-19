@@ -15,13 +15,19 @@ class BookListViewModel: ObservableObject {
     init() {}
 
     public func fetchBooks(search: String? = nil) {
-        
 
         var url = "/api/v1/book"
 
+
         if let search {
             url += "?search=\(search)"
+            if search.count <= 2, search.count != 0 {
+                return
+            }
         }
+
+        books = []
+
 
         if let orderKey {
             if search != nil {

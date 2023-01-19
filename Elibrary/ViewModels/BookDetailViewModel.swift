@@ -8,9 +8,6 @@
 import SwiftUI
 
 class BookDetailViewModel: ObservableObject {
-//    @Published var books: [Book] = []
-//    var orderKey: String?
-//
     init() {}
 
     public func borrowBook(book: Book, user: UserModel) {
@@ -19,7 +16,12 @@ class BookDetailViewModel: ObservableObject {
 
             switch result {
             case .success(_):
-                print("Ok")
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .showAlert,
+                                                    object: AlertData(title: Text("Info"),
+                                                                      message: Text("Kniha byla vypůjčena"),
+                                                                      dismissButton: .default(Text("OK")) {}))
+                }
             case .failure(_):
                 break
             }

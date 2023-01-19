@@ -22,4 +22,5 @@ struct Circulation: Codable, Identifiable {
     var borrower: UserModel
     var borrowedAt: CirculationDate? = nil
     var returnedAt: CirculationDate? = nil
+    var expectedReturnAt: CirculationDate? = nil
 }

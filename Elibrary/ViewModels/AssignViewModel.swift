@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class AssignViewModel: ObservableObject {
     @Published var customers: [UserModel] = []
@@ -39,7 +40,13 @@ class AssignViewModel: ObservableObject {
             
             switch result {
             case .success(_):
-                print("Ok")
+                DispatchQueue.main.async {
+                    NotificationCenter.default.post(name: .showAlert,
+                                                    object: AlertData(title: Text("Info"),
+                                                                      message: Text("Kniha byla přiřazena"),
+                                                                      dismissButton: .default(Text("OK")) {}))
+                }
+
             case .failure(MessageError.error(messages: _)):
                 break
             case .failure(_):
