@@ -33,7 +33,7 @@ struct BorrowedBooksListView: View {
                             )
                         }.swipeActions() {
                                 Button("Vrátit") {
-                                    viewModel.returnBook(book: book)
+                                    viewModel.returnBook(book: book, circulationId: circulation.id)
 //                                    viewModel.deleteBook(id: book.id)
                                 }.tint(.green)
 

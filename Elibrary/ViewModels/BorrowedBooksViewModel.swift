@@ -44,8 +44,8 @@ class BorrowedBooksViewModel: ObservableObject {
         })
     }
 
-    public func returnBook(book: Book) {
-        let url = "/api/v1/book/\(book.id)"
+    public func returnBook(book: Book, circulationId: String) {
+        let url = "/api/v1/circulation/\(circulationId)"
             Networking.shared.sendPutRequest(to: url, body: book.encoded(), then: { (result) in
                 if case .success(_) = result {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

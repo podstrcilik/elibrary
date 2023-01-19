@@ -34,6 +34,7 @@ struct BookListCellView: View {
                 }.font(.subheadline)
                 if let bottomTitle {
                     Text(bottomTitle)
+                        .font(.caption)
                 }
             }
         }.foregroundColor(availableCount > 0 ? .black : .gray)

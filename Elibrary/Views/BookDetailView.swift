@@ -27,12 +27,14 @@ struct BookDetailView: View {
                     Text("Autor: \(book.author)")
                     Text("Rok vydání: \(String(describing: book.yearOfPublication))")
                     Text("Počet stran: \(book.numberOfLicences)")
-                    Text("Dostupné množství \(book.numberOfLicences)")
+                    Text("Dostupné množství: \(book.numberOfLicences) ks")
                 }
+
             }
+            Text("Titulní stránka:")
             HStack(alignment: .center) {
                 Spacer()
-                CustomImageView(urlString: "https://bookify-backend.dev07.b2a.cz/api/v1/file/\(book.frontPageFileId ?? "0")/raw")
+                CustomImageView(urlString: "https://bookify-backend.dev07.b2a.cz/api/v1/file/\(book.frontPageFileId ?? "0")/raw", width: 200, height: 200)
                 Spacer()
             }
             Spacer()
