@@ -11,7 +11,7 @@ struct AccountView: View {
     @State var user: UserModel
     @State private var showEditModal = false
     @EnvironmentObject var loggedUser: LoggedUser
-
+    @State var shouldShowCirculations = true
     @State private var showCirculations = false
 
 
@@ -33,7 +33,7 @@ struct AccountView: View {
                 }) {
                     Text("Edit")
                 }
-                if loggedUser.isLibrarian {
+                if loggedUser.isLibrarian, shouldShowCirculations {
                     Button(action: {
                         showCirculations.toggle()
                     }) {
